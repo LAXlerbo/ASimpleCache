@@ -500,7 +500,52 @@ public class ACache {
 		return null;
 
 	}
+/**
+	 * 保存 list数据 到 缓存中
+	 * 
+	 * @param <T>
+	 * 
+	 * @param key
+	 *            保存的key
+	 * @param list
+	 *            保存的list
+	 */
+	public <T> void putList(String key, List<T> list) {
+		putList(key, list, -1);
+	}
 
+	/**
+	 * 保存 list数据到 缓存中
+	 * 
+	 * @param key
+	 *            保存的key
+	 * @param list
+	 *            保存的list
+	 * @param saveTime
+	 *            保存的时间，单位：秒
+	 */
+	public <T> void putList(String key, List<T> list, int saveTime) {
+		TestList<T> testList = new TestList<T>();
+		testList.list = list;
+		put(key, testList, saveTime);
+	}
+
+	/**
+	 * 读取 list数据
+	 * 
+	 * 
+	 * @param key
+	 * @return list 数据
+	 */
+	public <T> List<T> getAsList(String key) {
+		Object obj = getAsObject(key);
+		if ( obj!= null && obj instanceof TestList){
+			return ((TestList) obj).list;
+		}
+		else
+			return null;
+
+	}
 	// =======================================
 	// ============== bitmap 数据 读写 =============
 	// =======================================
